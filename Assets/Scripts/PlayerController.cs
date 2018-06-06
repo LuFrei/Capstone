@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void AimUp() {
-
+  
     }
 
     float Crouch() {
