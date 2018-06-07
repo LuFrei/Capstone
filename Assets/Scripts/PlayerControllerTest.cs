@@ -24,13 +24,15 @@ public class PlayerControllerTest : MonoBehaviour {
     bool _jump;
     #endregion
 
+    public Animator anim;
     public GameObject _bullet;
     public GameObject _bulletPoint;
 
 	// Use this for initialization
 	void Start () {
-
+        anim = gameObject.GetComponent<Animator>();
 	}
+
 
     // Update is called once per frame
     void Update() {
@@ -40,8 +42,9 @@ public class PlayerControllerTest : MonoBehaviour {
         _fire = Input.GetKeyDown(KeyCode.J);
         _jump = Input.GetKey(KeyCode.Space);
 
-        // if Fire Angle should fall back to default every frame, before checking to see if it should be turned
+        // movement modifiers should go back to default every frame, before checking to see if it should be altered
         _fireAngle = gameObject.transform.localRotation.y;
+        _speed = playerSpeed;
 
         // First I want to get the input and know where the player is looking
         if (_yAxis == 0) {
@@ -52,13 +55,34 @@ public class PlayerControllerTest : MonoBehaviour {
             _playerState = PlayerLookState.Up;
         }
 
+        if (_xAxis < 0)
+            _facingLeft = true;
+        else if (_xAxis > 0)
+            _facingLeft = false;
 
+        //Set animation, bullet, and speed modifier based on States
 
-            if (_yAxis < 0) {
-                Debug.Log("'down' is pressed");
-                Crouch();
-            }
-        Debug.Log("My speed should be: " + _speed);
+        switch (_playerState) {
+            case PlayerLookState.Forward:
+                break;
+            case PlayerLookState.Down:
+                if (_isGounded) {
+                    _speed = playerSpeed / 2;
+                }else if (!_isGounded) {
+                    if (_facingLeft)
+                        _fireAngle = 90;
+                    else
+                        _fireAngle = 270;
+                }
+                break;
+            case PlayerLookState.Up:
+                if (_facingLeft)
+                    _fireAngle = 270;
+                else
+                    _fireAngle += 90;
+                break;
+        }
+        
 
         Orientate();
 
@@ -70,7 +94,14 @@ public class PlayerControllerTest : MonoBehaviour {
 
         if (_jump && _isGounded)
             Jump();
+
+        Debug.Log("My speed should be: " + _speed);
 	}
+
+
+    //
+    //Funcitons start from here, down
+    //
 
     void Jump() {
         gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * _jumpHeight, ForceMode2D.Impulse);
@@ -87,23 +118,15 @@ public class PlayerControllerTest : MonoBehaviour {
     }
 
     //Simple movement code
-    void Move(float speed, float modifier) {
-        if(modifier == 0) {
-            modifier = 1;
-        }
-        else if(modifier != 0) {
-            modifier = modifier;    
-        }
+    void Move() {
 
-        if (_xAxis < 0)
-            _facingLeft = true;
-        if (_xAxis > 0)
-            _facingLeft = false;
+        if (_facingLeft)
+            _speed = -_speed;
+        else
+            _speed = Mathf.Abs(_speed);
 
-        if(!_facingLeft)
-            gameObject.transform.Translate(Vector3.right * _xAxis * (speed * modifier) * Time.deltaTime);
-        if(_facingLeft)
-            gameObject.transform.Translate(Vector3.right * _xAxis * (-speed * modifier) * Time.deltaTime);
+            gameObject.transform.Translate(Vector3.right * _xAxis * _speed * Time.deltaTime);
+
     }
 
     void Orientate() {
