@@ -24,6 +24,8 @@ public class PlayerControllerTest : MonoBehaviour {
     bool _jump;
     #endregion
 
+    public GameObject equippedWeapon;
+
     public Animator anim;
     public GameObject _bullet;
     public GameObject _bulletPoint;
@@ -90,7 +92,7 @@ public class PlayerControllerTest : MonoBehaviour {
             Move();
 
         if (_fire)
-            Shoot();
+            Attack();
 
         if (_jump && _isGounded)
             Jump();
@@ -136,24 +138,31 @@ public class PlayerControllerTest : MonoBehaviour {
             gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
     }
 
-    void Shoot() {
-        if(!_facingLeft)
+    void Attack() {
+        /*if(!_facingLeft)
             Instantiate(_bullet, _bulletPoint.transform.position, Quaternion.AngleAxis(_fireAngle, Vector3.forward));
         else if(_facingLeft)
-            Instantiate(_bullet, _bulletPoint.transform.position, Quaternion.AngleAxis(_fireAngle + 180, Vector3.forward));
+            Instantiate(_bullet, _bulletPoint.transform.position, Quaternion.AngleAxis(_fireAngle + 180, Vector3.forward));*/
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Ground")){
+
+        //Checks to see if player is grounded
+        if (collision.gameObject.CompareTag("Ground"))
             _isGounded = true;
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Ground")) {
-                _isGounded = false;
-            }
+        if (collision.gameObject.CompareTag("Ground"))
+            _isGounded = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Weapon")) {
+            equippedWeapon = collision.gameObject;
+            Destroy(collision.gameObject);
+        }
 
+    }
 }
