@@ -24,11 +24,7 @@ public class PlayerControllerTest : MonoBehaviour {
     bool _jump;
     #endregion
 
-    public GameObject equippedWeapon;
-
     public Animator anim;
-    public GameObject _bullet;
-    public GameObject _bulletPoint;
 
 	// Use this for initialization
 	void Start () {
@@ -45,11 +41,12 @@ public class PlayerControllerTest : MonoBehaviour {
         _jump = Input.GetKey(KeyCode.Space);
 
         // movement modifiers should go back to default every frame, before checking to see if it should be altered
-        _fireAngle = gameObject.transform.localRotation.y;
+        _fireAngle = gameObject.transform.localRotation.y;          //What  am i trying to do with this?
+        Debug.Log("the first angle is now: " + _fireAngle);
         _speed = playerSpeed;
 
-        // First I want to get the input and know where the player is looking
-        if (_yAxis == 0) {
+        
+        if (_yAxis == 0) {                                          //Checking to see where player is looking
             _playerState = PlayerLookState.Forward;
         } else if (_yAxis < 0) {
             _playerState = PlayerLookState.Down;
@@ -68,7 +65,7 @@ public class PlayerControllerTest : MonoBehaviour {
             case PlayerLookState.Forward:
                 break;
             case PlayerLookState.Down:
-                if (_isGounded) {
+                if (_isGounded) {                   //crouching effect
                     _speed = playerSpeed / 2;
                 }else if (!_isGounded) {
                     if (_facingLeft)
@@ -92,13 +89,11 @@ public class PlayerControllerTest : MonoBehaviour {
             Move();
 
         if (_fire)
-            Attack();
+            gameObject.GetComponentInChildren<GunBehavior>().Shoot(_fireAngle);
 
         if (_jump && _isGounded)
             Jump();
-
-        Debug.Log("My speed should be: " + _speed);
-	}
+    }
 
 
     //
@@ -156,13 +151,5 @@ public class PlayerControllerTest : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Ground"))
             _isGounded = false;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("Weapon")) {
-            equippedWeapon = collision.gameObject;
-            Destroy(collision.gameObject);
-        }
-
     }
 }
