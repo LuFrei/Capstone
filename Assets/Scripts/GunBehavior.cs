@@ -15,6 +15,7 @@ public class GunBehavior : MonoBehaviour {
     }
 
     public void Shoot(float fireAngle) {
+        Debug.Log("Inside the gun, the fireAngle is: " + fireAngle);
         switch (gunType) {
             case 0:
                 //save this for melee

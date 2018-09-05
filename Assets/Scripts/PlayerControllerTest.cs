@@ -40,9 +40,7 @@ public class PlayerControllerTest : MonoBehaviour {
         _fire = Input.GetKeyDown(KeyCode.J);
         _jump = Input.GetKey(KeyCode.Space);
 
-        // movement modifiers should go back to default every frame, before checking to see if it should be altered
-        _fireAngle = gameObject.transform.localRotation.y;          //What  am i trying to do with this?
-        Debug.Log("the first angle is now: " + _fireAngle);
+
         _speed = playerSpeed;
 
         
@@ -63,25 +61,24 @@ public class PlayerControllerTest : MonoBehaviour {
 
         switch (_playerState) {
             case PlayerLookState.Forward:
+                if(!_facingLeft)
+                    _fireAngle = 0;
+                else if (_facingLeft)
+                    _fireAngle = 180;
                 break;
             case PlayerLookState.Down:
-                if (_isGounded) {                   //crouching effect
-                    _speed = playerSpeed / 2;
+                if (_isGounded) {                   
+                    _speed = playerSpeed / 2;       //crouching effect
                 }else if (!_isGounded) {
-                    if (_facingLeft)
-                        _fireAngle = 90;
-                    else
-                        _fireAngle = 270;
+                    _fireAngle = 90;
                 }
                 break;
             case PlayerLookState.Up:
-                if (_facingLeft)
                     _fireAngle = 270;
-                else
-                    _fireAngle += 90;
                 break;
         }
-        
+
+        Debug.Log("the output angle is now: " + _fireAngle);
 
         Orientate();
 

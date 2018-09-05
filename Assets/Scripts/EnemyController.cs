@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultWep : MonoBehaviour {
-
-    public PlayerController playerController;
-    public bool fire;
+public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +11,6 @@ public class DefaultWep : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if ( )
+		
 	}
 }
