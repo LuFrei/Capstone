@@ -8,7 +8,7 @@ public class Equipment : MonoBehaviour {
 
     public enum Weapons { fists, pistol, machineGun };
     public Weapons equippedWeapon;
-    PlayerControllerTest player;
+    PlayerController player;
 
     GameObject pistol;
     GameObject machineGun;

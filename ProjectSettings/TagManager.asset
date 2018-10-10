@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Weapon
+  - Enemy
+  - Player Bullet
+  - Hazard
   layers:
   - Default
   - TransparentFX
@@ -15,9 +18,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - Player Manipulation
   - 
   - 
   - 
