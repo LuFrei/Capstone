@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomMovementPhysics : MonoBehaviour {
+public class Charger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		 
 	}
 	
 	// Update is called once per frame

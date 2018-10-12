@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTargetFollow : MonoBehaviour {
+public class CameraSystem : MonoBehaviour {
+
+    public float panSpeed;
 
     public Transform target;
     private Transform currentTrans;
@@ -32,7 +34,8 @@ public class CameraTargetFollow : MonoBehaviour {
 
     void TrackX() {
         if(target.position.x > transform.position.x) {
-            transform.position = new Vector3(target.position.x, currentTrans.position.y, currentTrans.position.z);
+            //transform.position = new Vector3(target.position.x, currentTrans.position.y, currentTrans.position.z);
+            transform.Translate(Vector3.right * panSpeed * Time.deltaTime);
         }
     }
 

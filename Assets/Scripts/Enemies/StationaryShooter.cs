@@ -8,8 +8,6 @@ public class StationaryShooter : MonoBehaviour {
 
     public float waitTime = 3f;
     private float currentTime;
-    private bool hasAttacked = false;
-    private bool hasShot = false;
 
     public SimpleTrigger trigger;
     public GameObject bullet;
@@ -50,8 +48,6 @@ public class StationaryShooter : MonoBehaviour {
     }
 
     void Shoot(float fireAngle) {
-
-
         Instantiate(bullet, bulletPoint.position, Quaternion.Euler(0, 0, fireAngle));
     }
 }
