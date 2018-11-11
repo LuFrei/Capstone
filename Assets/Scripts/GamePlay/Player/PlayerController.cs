@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine; 
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : Player {
     //this script should only handle inputs and distributing instructions based on such.
 
     float fireAngle;
@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject bulletPoint;
     public GameObject bullet;
-
-    public Transform respawnPoint;
 
     public Player player;
 
@@ -117,19 +115,5 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void Die() {
-        transform.position = respawnPoint.position;
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Hazard")) {
-            Die();
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Hazard")) {
-            Die();
-        }
-    }
 }

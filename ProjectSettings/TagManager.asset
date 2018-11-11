@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Player Bullet
   - Hazard
+  - Cam Pos
+  - Wall
   layers:
   - Default
   - TransparentFX
