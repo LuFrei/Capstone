@@ -10,6 +10,10 @@ public class InputManager{
     public bool fire;
     public bool jump;
 
+    GameManager gameManager;
+    PlayerController player;
+
+
     void Update() {
         xAxis = Input.GetAxisRaw("Horizontal");
         yAxis = Input.GetAxisRaw("Vertical");

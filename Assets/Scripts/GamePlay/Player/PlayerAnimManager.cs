@@ -5,9 +5,8 @@ using UnityEngine;
 public class PlayerAnimManager : MonoBehaviour {
 
     //public Transform playerRender;
-    public Animator TopAnim;
-    public Animator BottomAnim;
     public Player player;
+    public GroundDetector groundDetector;
   
     public bool isSprinting;
     public bool isCrouched;
@@ -58,15 +57,15 @@ public class PlayerAnimManager : MonoBehaviour {
             isLookingUp = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && !player.isGrounded) {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && !groundDetector.isGrounded) {
             isLookingDown = true;
-        } else if (Input.GetKeyUp(KeyCode.DownArrow) || player.isGrounded) {
+        } else if (Input.GetKeyUp(KeyCode.DownArrow) || groundDetector.isGrounded) {
             isLookingDown = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && player.isGrounded) {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && groundDetector.isGrounded) {
             isCrouched = true;
-        } else if (Input.GetKeyUp(KeyCode.DownArrow) || !player.isGrounded){
+        } else if (Input.GetKeyUp(KeyCode.DownArrow) || !groundDetector.isGrounded){
             isCrouched = false;
         }
 
@@ -82,11 +81,6 @@ public class PlayerAnimManager : MonoBehaviour {
         } else if (!isFacingLeft){
             transform.localScale = new Vector2(1, 1);
         }
-
-
-
-        //Update Animator Values
-        BottomAnim.SetBool("isMoving", isMoving);
 
     }
 }

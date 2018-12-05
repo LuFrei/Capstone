@@ -6,7 +6,7 @@ public class PlayerController : Player {
     //this script should only handle inputs and distributing instructions based on such.
 
     float fireAngle;
-
+    GroundDetector groundDetector;
     #region Input Vars
     float yAxis;
     float xAxis;
@@ -22,6 +22,7 @@ public class PlayerController : Player {
 	// Use this for initialization
 	void Start () {
         player = GetComponent<Player>();
+        groundDetector = GetComponentInChildren<GroundDetector>();
 	}
 
 
@@ -47,7 +48,7 @@ public class PlayerController : Player {
             Instantiate(bullet, bulletPoint.transform.position, Quaternion.AngleAxis(fireAngle, Vector3.forward));
         }
 
-        if (jump && player.isGrounded)
+        if (jump && groundDetector.isGrounded)
             Jump();
     }
 
@@ -69,9 +70,9 @@ public class PlayerController : Player {
                     fireAngle = 180;
                 break;
             case Player.PlayerLookState.Down:
-                if (!player.isGrounded) {
+                if (!groundDetector.isGrounded) {
                     fireAngle = 270;
-                } else if (player.isGrounded) {
+                } else if (groundDetector.isGrounded) {
                     fireAngle = 0; 
                 }
                 break;
@@ -93,16 +94,12 @@ public class PlayerController : Player {
 
     //Simple movement code
     void Move(float spd) {
-        if (player.isGrounded) {
-            if (Input.GetKey(KeyCode.LeftShift)) {
-                spd *= 2f;
-            } else if (player.playerState == Player.PlayerLookState.Down) {
+        if (groundDetector.isGrounded) {
+            if (player.playerState == Player.PlayerLookState.Down) {
                 spd *= 0.5f;
-            } else {
             }
         }
-
-        gameObject.transform.Translate(Vector3.right * xAxis * spd * Time.deltaTime);
+            gameObject.transform.Translate(Vector3.right * xAxis * spd * Time.deltaTime);
     }
 
     void Aim() {

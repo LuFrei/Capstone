@@ -11,6 +11,8 @@ TagManager:
   - Hazard
   - Cam Pos
   - Wall
+  - Death Point
+  - StartPoint
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - 
   - Enemy
   - Player
-  - Player Manipulation
+  - Ground
   - 
   - 
   - 
@@ -51,12 +53,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player Lower
-    uniqueID: 340451071
-    locked: 0
-  - name: Player Upper
-    uniqueID: 3063724395
-    locked: 0
-  - name: Foreground
-    uniqueID: 142095981
+  - name: Eyes
+    uniqueID: 3147367313
     locked: 0
