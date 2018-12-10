@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     public GameObject titleScreen;
     public GameObject pauseScreen;
 
+    public bool levelEnd;
+
     // Use this for initialization
     void Start () {
         currentState = GameStatus.Title;
@@ -36,8 +38,9 @@ public class GameManager : MonoBehaviour {
                 break;
         }
 
-
-
+        if (levelEnd) {
+            SceneManager.LoadScene("Scene02");
+        }
 	}
 
     void TitleLoop() {

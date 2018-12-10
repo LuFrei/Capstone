@@ -80,7 +80,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   open: 0
   speed: 0
-  distance: 0
+  delay: 0
+  maxDistance: 0
+  currentPos: 0
   doorStyle: 0
 --- !u!212 &212191382992201584
 SpriteRenderer:
@@ -117,7 +119,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300012, guid: 94ca19412c95ba64aa9528d560bc4d19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf4441bab1cc4354ab9d426cca651ff3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

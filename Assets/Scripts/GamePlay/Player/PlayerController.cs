@@ -38,8 +38,12 @@ public class PlayerController : Player {
         else if (xAxis > 0)
             player.facingLeft = false;
 
-        //Giving bullet direction based on aim.
+        if (health <= 0) {
+            Debug.Log("I have less than 0 health!!@$");
+            Die();
+        }
 
+        //Giving bullet direction based on aim.
         Aim();
         GenerateFireAngle();
         Move (player.speed);

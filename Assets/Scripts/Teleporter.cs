@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Teleporter : MonoBehaviour {
 
-    public Transform exit;
+    public Teleporter otherTeleporter;
     public GameObject player;
 
     bool readyToUse;
 
 	// Use this for initialization
 	void Start () {
-		
+        player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (readyToUse && Input.GetAxis("Vertical") > 0) {
-            player.transform.position = exit.position;
+        if (readyToUse && Input.GetKeyDown(KeyCode.UpArrow)) {
+            player.transform.position = otherTeleporter.gameObject.transform.position;
         }
 	}
 

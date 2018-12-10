@@ -6,7 +6,8 @@ public class Player : MonoBehaviour {
     //This script should keep track of the Status and statistics of the player.
 
     public Transform deathBox;
-    
+
+    public int health;
     public float speed;
     public float jumpHeight;
 
@@ -23,20 +24,22 @@ public class Player : MonoBehaviour {
         deathBox = GameObject.FindGameObjectWithTag("Death Point").transform;
 	}
 
-    void Die() {
+    protected void Die() {
+        Debug.Log("I am doing the Death loop now");
         gameManager.playerDead = true;
         gameObject.transform.position = deathBox.position;
+        health = 5;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Hazard")) {
-            Die();
+        if (collision.gameObject.CompareTag("Hazard")) {
+            health -= collision.gameObject.GetComponent<Hazard>().value;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Hazard")) {
-            Die();
+        if (collision.gameObject.CompareTag("Hazard")) {
+            health -= collision.gameObject.GetComponent<Hazard>().value;
         }
     }
 }
