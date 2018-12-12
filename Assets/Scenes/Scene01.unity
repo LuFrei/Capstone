@@ -573,6 +573,15 @@ Prefab:
       propertyPath: m_TagString
       value: Hazard
       objectReference: {fileID: 0}
+    - target: {fileID: 114029813256249770, guid: 9d820072b064d044fa4fdf500af0d5fd,
+        type: 2}
+      propertyPath: isActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328742998419114, guid: 9d820072b064d044fa4fdf500af0d5fd, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d820072b064d044fa4fdf500af0d5fd, type: 2}
   m_IsPrefabAsset: 0
@@ -689,7 +698,7 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 306726473}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -2423,6 +2432,7 @@ GameObject:
   - component: {fileID: 973937599}
   - component: {fileID: 973937598}
   - component: {fileID: 973937597}
+  - component: {fileID: 973937596}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2430,6 +2440,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &973937596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 973937595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7375b371517e19544b08d5551295ec43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &973937597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,6 +2467,7 @@ MonoBehaviour:
   health: 0
   speed: 5
   jumpHeight: 8
+  playerDead: 1
   gameManager: {fileID: 943544164}
   facingLeft: 0
   playerState: 0
@@ -3293,6 +3315,22 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1324932006}
   m_CullTransparentMesh: 0
+--- !u!1 &1353577759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1577336450367714, guid: 096c2fa98633ea54da00ba635c9ffeb9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1992621908}
+--- !u!114 &1353577760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1353577759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e31a0cf0c1901c41af150d497fde294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1355325059
 Prefab:
   m_ObjectHideFlags: 0
@@ -4165,6 +4203,11 @@ Prefab:
       propertyPath: door
       value: 
       objectReference: {fileID: 242371108}
+    - target: {fileID: 114841110414170324, guid: 31be8c2d5887bcf4eaa896e14af30818,
+        type: 2}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31be8c2d5887bcf4eaa896e14af30818, type: 2}
   m_IsPrefabAsset: 0
@@ -5041,6 +5084,7 @@ GameObject:
   - component: {fileID: 2118652764}
   - component: {fileID: 2118652763}
   - component: {fileID: 2118652762}
+  - component: {fileID: 2118652765}
   m_Layer: 0
   m_Name: End Trigger
   m_TagString: Untagged
@@ -5094,7 +5138,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5110,3 +5154,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &2118652765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2118652760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a72b88b150de5d04f8259eafff792f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gasEffect: {fileID: 306726473}

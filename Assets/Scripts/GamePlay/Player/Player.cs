@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
     public float speed;
     public float jumpHeight;
 
+    public bool playerDead = true;
+
     public GameManager gameManager;
 
     #region Player States
@@ -24,9 +26,16 @@ public class Player : MonoBehaviour {
         deathBox = GameObject.FindGameObjectWithTag("Death Point").transform;
 	}
 
+    protected virtual void Update() {
+        if (health <= 0) {
+            Debug.Log("I have less than 0 health!!@$");
+            Die();
+        }
+    }
+
     protected void Die() {
         Debug.Log("I am doing the Death loop now");
-        gameManager.playerDead = true;
+        playerDead = true;
         gameObject.transform.position = deathBox.position;
         health = 5;
     }

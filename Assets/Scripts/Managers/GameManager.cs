@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour {
 
     public GameObject player; 
 
-    public bool playerDead = true;
     public Transform currentRespawn;
 
     public GameObject titleScreen;
@@ -51,9 +50,9 @@ public class GameManager : MonoBehaviour {
     }
 
     void RunningLoop() {
-        if(playerDead == true) {
+        if(player.GetComponent<Player>().playerDead == true) {
             Debug.Log("Death Loop Start");
-            playerDead = false;
+            player.GetComponent<Player>().playerDead = false;
             StartCoroutine("DeathLoop");
         }
 

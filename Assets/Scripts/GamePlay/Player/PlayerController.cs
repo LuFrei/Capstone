@@ -27,7 +27,7 @@ public class PlayerController : Player {
 
 
     // Update is called once per frame
-    void Update() {
+    protected override void Update() {
 
         GetInput();
         Aim();
@@ -38,10 +38,7 @@ public class PlayerController : Player {
         else if (xAxis > 0)
             player.facingLeft = false;
 
-        if (health <= 0) {
-            Debug.Log("I have less than 0 health!!@$");
-            Die();
-        }
+        base.Update();
 
         //Giving bullet direction based on aim.
         Aim();
