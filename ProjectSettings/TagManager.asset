@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - Death Point
   - StartPoint
+  - Turret Limit
   layers:
   - Default
   - TransparentFX
@@ -47,12 +48,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Sub-Background
+    uniqueID: 1585685955
+    locked: 0
   - name: Background
     uniqueID: 3686772203
+    locked: 0
+  - name: Fore-Background
+    uniqueID: 2881954601
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Eyes
     uniqueID: 3147367313
+    locked: 0
+  - name: Foreground
+    uniqueID: 738954591
     locked: 0

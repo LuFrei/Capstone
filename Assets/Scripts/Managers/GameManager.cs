@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    //mental not: I want
+    public enum Scenes { Scene00, Scene01, Scene02 };
+    public Scenes currentScene;
+
     public enum GameStatus { Title, Running, Paused};
     public GameStatus currentState;
 
@@ -17,22 +21,26 @@ public class GameManager : MonoBehaviour {
 
     public bool levelEnd;
 
-    // Use this for initialization
+ 
     void Start () {
+        //Upon start up, the game will default to the Title screen
         currentState = GameStatus.Title;
+
+        //Loads the initial Scene
+        SceneManager.LoadScene((int)currentScene);
 	}
 	
-	// Update is called once per frame
+ 
 	void Update () {
         //if player dies, play death loop
         switch (currentState) {
             case GameStatus.Title:
                 TitleLoop();
-                break;
+                 break;
             case GameStatus.Running:
                 RunningLoop();
                 break;
-            case GameStatus.Paused:
+            case GameStatus.Paused: 
                 PauseLoop();
                 break;
         }
