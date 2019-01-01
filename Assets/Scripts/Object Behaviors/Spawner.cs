@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
-    public GameManager gameManger;
+    public Player player;
     public static GameObject[] spawnPoints;
     public int id;
 
@@ -13,8 +13,8 @@ public class Spawner : MonoBehaviour {
 
     private void Start() {
         if(id == 0) {
-            gameManger = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-            gameManger.currentRespawn = transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            player.currentSpawn = transform;
         }
     }
 

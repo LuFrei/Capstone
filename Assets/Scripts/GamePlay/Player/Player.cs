@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     //This script should keep track of the Status and statistics of the player.
 
     public Transform deathBox;
+    public Transform currentSpawn;
 
     public int health;
     public float speed;
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour {
     #endregion
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
         deathBox = GameObject.FindGameObjectWithTag("Death Point").transform;
 	}
 

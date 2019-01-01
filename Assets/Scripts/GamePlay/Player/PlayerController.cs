@@ -21,6 +21,7 @@ public class PlayerController : Player {
 
 	// Use this for initialization
 	void Start () {
+        base.Start();
         player = GetComponent<Player>();
         groundDetector = GetComponentInChildren<GroundDetector>();
 	}
@@ -34,16 +35,16 @@ public class PlayerController : Player {
 
         //Checking last direction player was facing.
         if (xAxis < 0)
-            player.facingLeft = true;
+            facingLeft = true;
         else if (xAxis > 0)
-            player.facingLeft = false;
+            facingLeft = false;
 
         base.Update();
 
         //Giving bullet direction based on aim.
         Aim();
         GenerateFireAngle();
-        Move (player.speed);
+        Move (speed);
 
         if (fire) {
             Instantiate(bullet, bulletPoint.transform.position, Quaternion.AngleAxis(fireAngle, Vector3.forward));
@@ -63,11 +64,11 @@ public class PlayerController : Player {
     }
 
     void GenerateFireAngle() {
-        switch (player.playerState) {
+        switch (playerState) {
             case Player.PlayerLookState.Forward:
-                if (!player.facingLeft)
+                if (!facingLeft)
                     fireAngle = 0;
-                else if (player.facingLeft)
+                else if (facingLeft)
                     fireAngle = 180;
                 break;
             case Player.PlayerLookState.Down:
@@ -84,7 +85,7 @@ public class PlayerController : Player {
     }
 
     void Jump() {
-        gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up *  player.jumpHeight, ForceMode2D.Impulse);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpHeight, ForceMode2D.Impulse);
     }
 
     float Crouch() {
@@ -96,7 +97,7 @@ public class PlayerController : Player {
     //Simple movement code
     void Move(float spd) {
         if (groundDetector.isGrounded) {
-            if (player.playerState == Player.PlayerLookState.Down) {
+            if (playerState == Player.PlayerLookState.Down) {
                 spd *= 0.5f;
             }
         }
@@ -105,11 +106,11 @@ public class PlayerController : Player {
 
     void Aim() {
         if (yAxis == 0) {
-            player.playerState = Player.PlayerLookState.Forward;
+            playerState = Player.PlayerLookState.Forward;
         } else if (yAxis < 0) {
-            player.playerState = Player.PlayerLookState.Down;
+            playerState = Player.PlayerLookState.Down;
         } else if (yAxis > 0) {
-            player.playerState = Player.PlayerLookState.Up;
+            playerState = Player.PlayerLookState.Up;
         }
     }
 
