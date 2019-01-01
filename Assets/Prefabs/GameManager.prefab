@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4202687034572136}
   - component: {fileID: 114232507779332344}
-  - component: {fileID: 114275132951375452}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -52,20 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c9e38f45aaa65469678cec041a833f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentScene: 1
   currentState: 0
   player: {fileID: 0}
   currentRespawn: {fileID: 0}
   titleScreen: {fileID: 0}
   pauseScreen: {fileID: 0}
   levelEnd: 0
---- !u!114 &114275132951375452
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1185412301148978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7375b371517e19544b08d5551295ec43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
