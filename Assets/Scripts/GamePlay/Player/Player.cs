@@ -22,11 +22,6 @@ public class Player : MonoBehaviour {
     public PlayerLookState playerState;
     #endregion
 
-	// Use this for initialization
-	protected virtual void Start () {
-        deathBox = GameObject.FindGameObjectWithTag("Death Point").transform;
-	}
-
     protected virtual void Update() {
         if (health <= 0) {
             Debug.Log("I have less than 0 health!!@$");

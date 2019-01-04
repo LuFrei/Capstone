@@ -1,4 +1,4 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,24 +9,23 @@ public class Spawner : MonoBehaviour {
     public int id;
 
     public bool active;
-    public DoorBehavior door;
 
-    private void Start() {
-        if(id == 0) {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            player.currentSpawn = transform;
-        }
+    public GameObject door;
+    DoorBehavior doorBehavior;
+
+    void Start() {
+        if(door != null) doorBehavior = door.GetComponent<DoorBehavior>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("Player")) {
-            door.open = true;
+        if (collision.gameObject.CompareTag("Player") && door != null) {
+            doorBehavior.open = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("Player")) {
-            door.open = false;
+        if (collision.gameObject.CompareTag("Player") && door != null) {
+            doorBehavior.open = false;
         }
     }
 }

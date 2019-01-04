@@ -6,7 +6,9 @@ public class PlayerController : Player {
     //this script should only handle inputs and distributing instructions based on such.
 
     float fireAngle;
-    GroundDetector groundDetector;
+    //GroundDetector groundDetector;
+    RayCastDetector groundDetector;
+
     #region Input Vars
     float yAxis;
     float xAxis;
@@ -21,10 +23,10 @@ public class PlayerController : Player {
 
 	// Use this for initialization
 	void Start () {
-        base.Start();
         player = GetComponent<Player>();
-        groundDetector = GetComponentInChildren<GroundDetector>();
-	}
+        //groundDetector = GetComponentInChildren<GroundDetector>();
+        groundDetector = GetComponentInChildren<RayCastDetector>();
+    }
 
 
     // Update is called once per frame
