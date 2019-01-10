@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
     public float jumpHeight;
 
     public bool playerDead = true;
+    public bool invulnerable = false;
+    float invulnerabilityTimer;
 
     public GameManager gameManager;
 
@@ -23,9 +25,16 @@ public class Player : MonoBehaviour {
     #endregion
 
     protected virtual void Update() {
+
+        //if 0 or less health, die
         if (health <= 0) {
             Debug.Log("I have less than 0 health!!@$");
             Die();
+        }
+
+        //if invulnerable, countdown to vulnerable
+        if (invulnerable) {
+            StartCoroutine(Invulnerability());
         }
     }
 
@@ -35,16 +44,26 @@ public class Player : MonoBehaviour {
         gameObject.transform.position = deathBox.position;
         health = 5;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("Hazard")) {
-            health -= collision.gameObject.GetComponent<Hazard>().value;
+    
+    /// <summary>
+    /// Deals damage to the player
+    /// </summary>
+    /// <param name="damageValue">How much damage to deal</param>
+    /// <param name="time">How long invulnerability should last</param>
+    public void Damage(int damageValue, float time) {
+        //Subtract damage from health if not invulnerable
+        if (!invulnerable) {
+            health -= damageValue;
+            invulnerable = true;
+            invulnerabilityTimer = time;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Hazard")) {
-            health -= collision.gameObject.GetComponent<Hazard>().value;
+    IEnumerator Invulnerability() { 
+        while(invulnerabilityTimer > 0) {
+            invulnerabilityTimer -= Time.deltaTime;
+            yield return null;
         }
+        invulnerable = false;
     }
 }

@@ -6,11 +6,10 @@ public class PlayerAnimManager : MonoBehaviour {
 
     //public Transform playerRender;
     public Player player;
-    public GroundDetector groundDetector;
+    public RayCastDetector raycastDetector;
+    public Animator anim;
   
-    public bool isSprinting;
     public bool isCrouched;
-    public bool isSliding;
 
     public bool isJumping;
     public bool isShooting;
@@ -26,6 +25,8 @@ public class PlayerAnimManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         player = GetComponentInParent<Player>();
+        raycastDetector = GetComponentInParent<RayCastDetector>();
+        anim = GetComponent<Animator>(); 
 	}
 	
 	// Update is called once per frame
@@ -45,27 +46,21 @@ public class PlayerAnimManager : MonoBehaviour {
             isFacingLeft = false;
         }
 
-        if(isMoving && Input.GetKey(KeyCode.LeftShift)) {
-            isSprinting = true;
-        } else {
-            isSprinting = false;
-        }
-
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             isLookingUp = true;
         } else if (Input.GetKeyUp(KeyCode.UpArrow)) {
             isLookingUp = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && !groundDetector.isGrounded) {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && !raycastDetector.isGrounded) {
             isLookingDown = true;
-        } else if (Input.GetKeyUp(KeyCode.DownArrow) || groundDetector.isGrounded) {
+        } else if (Input.GetKeyUp(KeyCode.DownArrow) || raycastDetector.isGrounded) {
             isLookingDown = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && groundDetector.isGrounded) {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && raycastDetector.isGrounded) {
             isCrouched = true;
-        } else if (Input.GetKeyUp(KeyCode.DownArrow) || !groundDetector.isGrounded){
+        } else if (Input.GetKeyUp(KeyCode.DownArrow) || !raycastDetector.isGrounded){
             isCrouched = false;
         }
 

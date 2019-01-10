@@ -3,118 +3,144 @@ using System.Collections.Generic;
 using UnityEngine; 
 
 public class PlayerController : Player {
-    //this script should only handle inputs and distributing instructions based on such.
 
-    float fireAngle;
-    //GroundDetector groundDetector;
     RayCastDetector groundDetector;
 
     #region Input Vars
-    float yAxis;
-    float xAxis;
+    public bool left;
+    public bool right;
+    public bool up;
+    public bool down;
     bool fire;
     bool jump;
     #endregion
 
+    Rigidbody2D rgb2d;
+
     public GameObject bulletPoint;
     public GameObject bullet;
 
-    public Player player;
 
 	// Use this for initialization
 	void Start () {
-        player = GetComponent<Player>();
-        //groundDetector = GetComponentInChildren<GroundDetector>();
+        rgb2d = GetComponent<Rigidbody2D>();
         groundDetector = GetComponentInChildren<RayCastDetector>();
-    }
-
+    } 
 
     // Update is called once per frame
     protected override void Update() {
-
         GetInput();
-        Aim();
 
         //Checking last direction player was facing.
-        if (xAxis < 0)
+        if (left)
             facingLeft = true;
-        else if (xAxis > 0)
+        else if (right)
             facingLeft = false;
 
         base.Update();
 
-        //Giving bullet direction based on aim.
-        Aim();
-        GenerateFireAngle();
         Move (speed);
 
-        if (fire) {
-            Instantiate(bullet, bulletPoint.transform.position, Quaternion.AngleAxis(fireAngle, Vector3.forward));
-        }
-
-        if (jump && groundDetector.isGrounded)
+        if (jump && groundDetector.isGrounded) {
             Jump();
+        }
     }
 
 
     
     void GetInput() {
-        yAxis = Input.GetAxisRaw("Vertical");
-        xAxis = Input.GetAxisRaw("Horizontal");
+        //Reset values
+        //We want to make sure player is still holding down button
+        left = false;
+        right = false;
+        up = false;
+        down = false;
+        fire = false;
+        jump = false;
+
+        //Individually assigning directions to bools in order for wall collision to work
+        if (Input.GetAxisRaw("Vertical") > 0) {
+            up = true;
+        } else if (Input.GetAxisRaw("Vertical") < 0) {
+            down = true;
+        }
+
+        if (Input.GetAxisRaw("Horizontal") > 0) {
+            right = true;
+        } else if (Input.GetAxisRaw("Horizontal") < 0) {
+            left = true;
+        }
+
         fire = Input.GetKeyDown(KeyCode.J);
         jump = Input.GetKeyDown(KeyCode.Space);
     }
 
-    void GenerateFireAngle() {
-        switch (playerState) {
-            case Player.PlayerLookState.Forward:
-                if (!facingLeft)
-                    fireAngle = 0;
-                else if (facingLeft)
-                    fireAngle = 180;
-                break;
-            case Player.PlayerLookState.Down:
-                if (!groundDetector.isGrounded) {
-                    fireAngle = 270;
-                } else if (groundDetector.isGrounded) {
-                    fireAngle = 0; 
-                }
-                break;
-            case Player.PlayerLookState.Up:
-                fireAngle = 90;
-                break;
-        }
-    }
-
     void Jump() {
-        gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpHeight, ForceMode2D.Impulse);
-    }
+        rgb2d.AddForce(Vector2.up + new Vector2(0 ,jumpHeight), ForceMode2D.Impulse);
+    } 
 
-    float Crouch() {
-        Debug.Log("I should be crouching");
-        return 0.5f;
+    void Move(float speed) {
 
-    }
-
-    //Simple movement code
-    void Move(float spd) {
         if (groundDetector.isGrounded) {
-            if (playerState == Player.PlayerLookState.Down) {
-                spd *= 0.5f;
+            if (playerState == PlayerLookState.Down) {
+                speed *= 0.5f;
             }
         }
-            gameObject.transform.Translate(Vector3.right * xAxis * spd * Time.deltaTime);
-    }
 
-    void Aim() {
-        if (yAxis == 0) {
-            playerState = Player.PlayerLookState.Forward;
-        } else if (yAxis < 0) {
-            playerState = Player.PlayerLookState.Down;
-        } else if (yAxis > 0) {
-            playerState = Player.PlayerLookState.Up;
+        Vector2 speedModifier = new Vector2(speed, 0);
+
+        if (left && !groundDetector.leftWall) {
+            gameObject.transform.Translate(Vector3.left * speed * Time.deltaTime);
+        } else if (right && !groundDetector.rightWall) {
+            gameObject.transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
     }
 
+    //Experimental: I want to see if i can get something interesting going on here
+    //WIP: Back logged for now until more important things are done
+    void WallSlide() {
+        rgb2d.gravityScale = 3;
+
+        if (left && groundDetector.leftWall) {
+            rgb2d.gravityScale = 1.7f;
+        } else if (right && groundDetector.rightWall) {
+            rgb2d.gravityScale = 1.7f;
+        }
+    }
+
+
+    //Currently unused aiming code.
+    //Keeping incase we get to implement it later. Don't watn to rewrite everythig, if I do.
+    #region unused aim
+    //void GenerateFireAngle() {
+    //    switch (playerState) {
+    //        case PlayerLookState.Forward:
+    //            if (!facingLeft)
+    //                fireAngle = 0;
+    //            else if (facingLeft)
+    //                fireAngle = 180;
+    //            break;
+    //        case PlayerLookState.Down:
+    //            if (!groundDetector.isGrounded) {
+    //                fireAngle = 270;
+    //            } else if (groundDetector.isGrounded) {
+    //                fireAngle = 0;
+    //            }
+    //            break;
+    //        case PlayerLookState.Up:
+    //            fireAngle = 90;
+    //            break;
+    //    }
+    //}
+    //void Aim() {
+    //    if (yAxis == 0) {
+    //        playerState = Player.PlayerLookState.Forward;
+    //    } else if (yAxis < 0) {
+    //        playerState = Player.PlayerLookState.Down;
+    //    } else if (yAxis > 0) {
+    //        playerState = Player.PlayerLookState.Up;
+    //    }
+    //}
+    #endregion
 
 }
