@@ -29,7 +29,9 @@ public class PlayerController : Player {
 
     // Update is called once per frame
     protected override void Update() {
-        GetInput();
+        if (!playerDead) {
+            GetInput();
+        }  
 
         //Checking last direction player was facing.
         if (left)
@@ -41,8 +43,13 @@ public class PlayerController : Player {
 
         Move (speed);
 
-        if (jump && groundDetector.isGrounded) {
-            Jump();
+        if (jump){
+            if (groundDetector.isGrounded) {
+                Jump();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && currentSpawn.GetComponent<Spawner>().ready == true) {
+            Respawn();
         }
     }
 
@@ -86,8 +93,6 @@ public class PlayerController : Player {
                 speed *= 0.5f;
             }
         }
-
-        Vector2 speedModifier = new Vector2(speed, 0);
 
         if (left && !groundDetector.leftWall) {
             gameObject.transform.Translate(Vector3.left * speed * Time.deltaTime);

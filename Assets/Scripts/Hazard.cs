@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hazard : MonoBehaviour {
 
     public int damageValue;
-    public Player player;
+    Player player;
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -14,7 +14,7 @@ public class Hazard : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
             Debug.Log("I should be doing damage to player");
-            player.Damage(damageValue, 10);
+            player.Damage(damageValue, 2);
         }
     }
 }

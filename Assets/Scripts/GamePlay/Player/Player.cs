@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     //This script should keep track of the Status and statistics of the player.
-
-    public Transform deathBox;
-    public Transform currentSpawn;
+    public GameObject currentSpawn;
 
     public int health;
     public float speed;
     public float jumpHeight;
 
-    public bool playerDead = true;
+    public bool playerDead = false;
     public bool invulnerable = false;
-    float invulnerabilityTimer;
+    public float spawnTimer;
+    private float invulnerabilityTimer;
 
     public GameManager gameManager;
 
@@ -27,7 +26,7 @@ public class Player : MonoBehaviour {
     protected virtual void Update() {
 
         //if 0 or less health, die
-        if (health <= 0) {
+        if (health <= 0 && !playerDead) {
             Debug.Log("I have less than 0 health!!@$");
             Die();
         }
@@ -41,8 +40,14 @@ public class Player : MonoBehaviour {
     protected void Die() {
         Debug.Log("I am doing the Death loop now");
         playerDead = true;
-        gameObject.transform.position = deathBox.position;
+        gameObject.transform.position = currentSpawn.transform.position;
+    }
+
+    protected void Respawn() {
+        Debug.Log("Respawning/ Recovering health");
+        playerDead = false;
         health = 5;
+        currentSpawn.GetComponent<Spawner>().OpenDoor();
     }
     
     /// <summary>
@@ -52,14 +57,16 @@ public class Player : MonoBehaviour {
     /// <param name="time">How long invulnerability should last</param>
     public void Damage(int damageValue, float time) {
         //Subtract damage from health if not invulnerable
+        Debug.Log("Player Damage registered");
         if (!invulnerable) {
+            Debug.Log("is vulnerable, and player should have damage taken away");
             health -= damageValue;
             invulnerable = true;
             invulnerabilityTimer = time;
         }
     }
 
-    IEnumerator Invulnerability() { 
+    private IEnumerator Invulnerability() { 
         while(invulnerabilityTimer > 0) {
             invulnerabilityTimer -= Time.deltaTime;
             yield return null;

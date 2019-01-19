@@ -295,6 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
+  leftWall: 0
+  rightWall: 0
 --- !u!114 &114459810565997042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,18 +308,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e002b034dba49d4f8f02f0b67ea621e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathBox: {fileID: 0}
   currentSpawn: {fileID: 0}
   health: 3
   speed: 5
   jumpHeight: 8
   playerDead: 1
+  invulnerable: 0
+  spawnTimer: 0
   gameManager: {fileID: 0}
   facingLeft: 0
   playerState: 0
+  left: 0
+  right: 0
+  up: 0
+  down: 0
   bulletPoint: {fileID: 0}
   bullet: {fileID: 0}
-  player: {fileID: 0}
 --- !u!114 &114837323840589274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,10 +348,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  groundDetector: {fileID: 114837323840589274}
-  isSprinting: 0
+  raycastDetector: {fileID: 0}
+  anim: {fileID: 0}
   isCrouched: 0
-  isSliding: 0
   isJumping: 0
   isShooting: 0
   isLookingUp: 0
