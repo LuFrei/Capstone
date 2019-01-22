@@ -1793,7 +1793,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4931456803555210, guid: 18b991f2e6dd4b5468c254c7359fbc18, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 4931456803555210, guid: 18b991f2e6dd4b5468c254c7359fbc18, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2101,8 +2101,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1500348815}
   - component: {fileID: 1500348816}
+  - component: {fileID: 1500348817}
   m_Layer: 0
-  m_Name: LaserTurret
+  m_Name: ' '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2115,7 +2116,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1500348814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11, y: 4.75, z: 0}
+  m_LocalPosition: {x: 18, y: 5, z: 0}
   m_LocalScale: {x: 0.33, y: 0.66, z: 1}
   m_Children:
   - {fileID: 1666961878}
@@ -2168,6 +2169,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1500348817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1500348814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf95f40201b4ae746bc94e363369fc20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
 --- !u!1 &1506528849
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,7 +2291,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4762647065023742, guid: b8071336cf014b64d89177c4dab37629, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 9.5
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 4762647065023742, guid: b8071336cf014b64d89177c4dab37629, type: 2}
       propertyPath: m_LocalPosition.y

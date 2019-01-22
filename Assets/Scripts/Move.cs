@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Move : MonoBehaviour {
 
+    //This script moves objects using this script
+    //at a certain direction at a certain speed
+    //in definitelly
+
+
     public enum Direction { Up, Down, Left, Right};
     public Direction direction;
 

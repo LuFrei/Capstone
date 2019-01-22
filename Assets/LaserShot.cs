@@ -19,6 +19,7 @@ public class LaserShot : MonoBehaviour {
 	void Start () {
         line = GetComponent<LineRenderer>();
         rayMask = (1 << 11);
+        rayMask = (1 << 2);
         rayMask = ~rayMask;
     }
 	
