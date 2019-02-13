@@ -70,7 +70,7 @@ public class PlayerAnimManager : MonoBehaviour {
             isLookingStraight = false;
         }
 
-
+        //mirror
         if (isFacingLeft) {
             transform.localScale = new Vector2(-1, 1);
         } else if (!isFacingLeft){
