@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerAnimManager : MonoBehaviour {
 
     //public Transform playerRender;
-    public Player player;
-    public RayCastDetector raycastDetector;
-    public Animator anim;
+    private PlayerController player;
+    private RayCastDetector raycastDetector;
+    private Animator anim;
   
+	public float yDelta;
+	private float lastYPos = 0;
+
     public bool isCrouched;
 
     public bool isJumping;
@@ -24,21 +27,28 @@ public class PlayerAnimManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        player = GetComponentInParent<Player>();
+        player = GetComponentInParent<PlayerController>();
         raycastDetector = GetComponentInParent<RayCastDetector>();
         anim = GetComponent<Animator>(); 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+		GetValues();
+		SetParameters();
+		lastYPos = transform.position.y;
 
-        //Link Input to parameters
-		if(Input.GetAxis("Horizontal") != 0) {
+    }
+
+	void GetValues() {
+        //Link Input to vars
+		if(player.right || player.left) {
             isMoving = true;
         } else {
             isMoving = false;
         }
+
+		yDelta = transform.position.y - lastYPos;
 
         if(Input.GetAxis("Horizontal") < 0) {
             isFacingLeft = true;
@@ -76,6 +86,11 @@ public class PlayerAnimManager : MonoBehaviour {
         } else if (!isFacingLeft){
             transform.localScale = new Vector2(1, 1);
         }
+	}
 
-    }
+	void SetParameters() {
+		anim.SetBool("isMoving", isMoving);
+		anim.SetBool("isGrounded", raycastDetector.isGrounded);
+		anim.SetFloat("yDelta", yDelta);
+	}
 }

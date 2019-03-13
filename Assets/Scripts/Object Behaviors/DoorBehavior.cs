@@ -43,7 +43,7 @@ public class DoorBehavior : MonoBehaviour, ILockable {
         if (!isLocked && currentPos < maxDistance) {
             //While door is not fully open, keep opening
             while (currentPos < maxDistance) {
-                Debug.Log("I'm opening!");
+                //Debug.Log("I'm opening!");
                 transform.Translate(openDir * speed * Time.deltaTime);
                 currentPos += (speed * Time.deltaTime);
                 //Check if door didn't exceed maximum open position
@@ -59,7 +59,7 @@ public class DoorBehavior : MonoBehaviour, ILockable {
     public IEnumerator Close() {
         if (!isLocked && currentPos > 0) {
             while(currentPos > 0){
-                Debug.Log("I'm closing!");
+                //Debug.Log("I'm closing!");
                 transform.Translate(openDir * -speed * Time.deltaTime);
                 currentPos -= (speed * Time.deltaTime);
                 if (currentPos < 0) {

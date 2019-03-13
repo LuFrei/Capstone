@@ -20,6 +20,10 @@ public class PlayerController : Player {
     public GameObject bulletPoint;
     public GameObject bullet;
 
+	//Dirty last min code to make player not move when dialogue is active
+	//I need to fix this at a later date
+	public bool inDialogue = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,9 +33,17 @@ public class PlayerController : Player {
 
     // Update is called once per frame
     protected override void Update() {
-        if (!playerDead) {
+        if (!playerDead && !inDialogue) {
             GetInput();
-        }  
+        }  else {
+			//make sure if we're not getting input, everything is false
+			left = false;
+			right = false;
+			up = false;
+			down = false;
+			fire = false;
+			jump = false;
+		}
 
         //Checking last direction player was facing.
         if (left)

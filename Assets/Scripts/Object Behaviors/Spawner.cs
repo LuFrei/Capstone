@@ -8,15 +8,16 @@ public class Spawner : MonoBehaviour {
     //public static GameObject[] spawnPoints;
     public bool firstSpawn;
 
-    GameObject door;
+    private GameObject door;
 
-    public bool active;
-    public bool ready;
-    bool doop;
+    public bool active = false;
+    public bool ready = false;
+    private bool doop = true; //doop is used solely so "Countdown" isn't called indefinitely
 
-    Animator anim;
+    private Animator anim;
 
-    void Start() {
+    private void Start() { 
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         anim = GetComponentInChildren<Animator>();
 
         door = transform.Find("Door").gameObject;
@@ -30,12 +31,15 @@ public class Spawner : MonoBehaviour {
         anim.SetBool("active", active);
         anim.SetBool("ready", ready);
 
+		//if active, check when player can spawn
         if (active) {
+			//Debug.Log(gameObject.name + " is active.");
             if (player.playerDead && !ready && doop) {
+				//Debug.Log("Starting countdown");
                 StartCoroutine(Countdown(2));
                 doop = false;
-            } else if(!player.playerDead){
-                ready = false;
+            } else if (!player.playerDead) {
+                ready = false;	//make sure if player alive, spawner can't be ready
                 doop = true;
             }
         }
@@ -46,6 +50,7 @@ public class Spawner : MonoBehaviour {
             time -= Time.deltaTime;
             yield return null;
         }
+		//Debug.Log("I'm ready to respawn!");
         ready = true;
     }
 

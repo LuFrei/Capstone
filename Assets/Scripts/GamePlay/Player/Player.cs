@@ -10,7 +10,9 @@ public class Player : MonoBehaviour {
     public float speed;
     public float jumpHeight;
 
-    public bool playerDead = false;
+	private bool deathDoop; //makes "die" only play once
+
+    public bool playerDead = true; //start player as dead
     public bool invulnerable = false;
     public float spawnTimer;
     private float invulnerabilityTimer;
@@ -26,8 +28,8 @@ public class Player : MonoBehaviour {
     protected virtual void Update() {
 
         //if 0 or less health, die
-        if (health <= 0 && !playerDead) {
-            Debug.Log("I have less than 0 health!!@$");
+        if ((health <= 0 && !playerDead && !deathDoop)) {
+            //Debug.Log("I have less than 0 health!!@$");
             Die();
         }
 
@@ -38,15 +40,17 @@ public class Player : MonoBehaviour {
     }
 
     protected void Die() {
-        Debug.Log("I am doing the Death loop now");
+        //Debug.Log("I am doing the Death loop now");
         playerDead = true;
+		deathDoop = true;
         gameObject.transform.position = currentSpawn.transform.position;
     }
 
     protected void Respawn() {
-        Debug.Log("Respawning/ Recovering health");
+        //Debug.Log("Respawning/ Recovering health");
         playerDead = false;
         health = 5;
+		deathDoop = false;
         currentSpawn.GetComponent<Spawner>().OpenDoor();
     }
     
