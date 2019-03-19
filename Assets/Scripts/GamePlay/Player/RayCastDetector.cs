@@ -35,9 +35,9 @@ public class RayCastDetector : MonoBehaviour {
         Array.Clear(groundHit, 0, 3);
 
         //Cast rays and store hit info in groundHit array
-        groundHit[1] = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.1f), Vector2.down, 0.2f, groundMask);
-        groundHit[2] = Physics2D.Raycast(new Vector2(transform.position.x + 0.5f, transform.position.y + 0.1f), Vector2.down, 0.2f, groundMask);
-        groundHit[0] = Physics2D.Raycast(new Vector2(transform.position.x - 0.5f, transform.position.y + 0.1f), Vector2.down, 0.2f, groundMask);
+        groundHit[1] = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.1f), Vector2.down, 0.2f, groundMask);			//middle ray
+        groundHit[2] = Physics2D.Raycast(new Vector2(transform.position.x + 0.5f, transform.position.y + 0.1f), Vector2.down, 0.2f, groundMask);	//right ray
+        groundHit[0] = Physics2D.Raycast(new Vector2(transform.position.x - 0.5f, transform.position.y + 0.1f), Vector2.down, 0.2f, groundMask);	//left ray
 
             //Displays rays
             Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + 0.1f), Vector2.down * 0.2f);
@@ -62,12 +62,12 @@ public class RayCastDetector : MonoBehaviour {
 
 
         //Cast towards right
-        rightWallHit[1] = Physics2D.Raycast(new Vector2(transform.position.x + 0.4f, transform.position.y + 0.5f), Vector2.right, 0.12f, groundMask);
-        rightWallHit[2] = Physics2D.Raycast(new Vector2(transform.position.x + 0.4f, transform.position.y + 1f), Vector2.right, 0.12f, groundMask);
-        rightWallHit[0] = Physics2D.Raycast(new Vector2(transform.position.x + 0.4f, transform.position.y), Vector2.right, 0.12f, groundMask);
+        rightWallHit[1] = Physics2D.Raycast(new Vector2(transform.position.x + 0.4f, transform.position.y + 0.5f), Vector2.right, 0.12f, groundMask);	//middle
+        rightWallHit[2] = Physics2D.Raycast(new Vector2(transform.position.x + 0.4f, transform.position.y + 1f), Vector2.right, 0.12f, groundMask);		//top
+        rightWallHit[0] = Physics2D.Raycast(new Vector2(transform.position.x + 0.4f, transform.position.y + 0.1f), Vector2.right, 0.12f, groundMask);			//bottom
 
         //Displays rays
-        Debug.DrawRay(new Vector2(transform.position.x + 0.4f, transform.position.y), Vector2.right * 0.12f);
+        Debug.DrawRay(new Vector2(transform.position.x + 0.4f, transform.position.y + 0.1f), Vector2.right * 0.12f);
         Debug.DrawRay(new Vector2(transform.position.x + 0.4f, transform.position.y + 0.5f), Vector2.right * 0.12f);
         Debug.DrawRay(new Vector2(transform.position.x + 0.4f, transform.position.y + 1f), Vector2.right * 0.12f);
 
@@ -80,12 +80,12 @@ public class RayCastDetector : MonoBehaviour {
 
 
         //Cast towards left
-        leftWallHit[0] = Physics2D.Raycast(new Vector2(transform.position.x - 0.4f, transform.position.y), Vector2.left, 0.12f, groundMask);
-        leftWallHit[1] = Physics2D.Raycast(new Vector2(transform.position.x - 0.4f, transform.position.y + 0.5f), Vector2.left, 0.12f, groundMask);
-        leftWallHit[2] = Physics2D.Raycast(new Vector2(transform.position.x - 0.4f, transform.position.y + 1f), Vector2.left, 0.12f, groundMask);
+        leftWallHit[0] = Physics2D.Raycast(new Vector2(transform.position.x - 0.4f, transform.position.y + 0.1f), Vector2.left, 0.12f, groundMask);			//bottom
+        leftWallHit[1] = Physics2D.Raycast(new Vector2(transform.position.x - 0.4f, transform.position.y + 0.5f), Vector2.left, 0.12f, groundMask);		//middle
+        leftWallHit[2] = Physics2D.Raycast(new Vector2(transform.position.x - 0.4f, transform.position.y + 1f), Vector2.left, 0.12f, groundMask);		//top
 
         //Displays rays
-        Debug.DrawRay(new Vector2(transform.position.x - 0.4f, transform.position.y), Vector2.left * 0.12f);
+        Debug.DrawRay(new Vector2(transform.position.x - 0.4f, transform.position.y + 0.1f), Vector2.left * 0.12f);
         Debug.DrawRay(new Vector2(transform.position.x - 0.4f, transform.position.y + 0.5f), Vector2.left * 0.12f);
         Debug.DrawRay(new Vector2(transform.position.x - 0.4f, transform.position.y + 1f), Vector2.left * 0.12f);
 
