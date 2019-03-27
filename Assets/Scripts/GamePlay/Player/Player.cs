@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
 
 	private bool deathDoop; //makes "die" only play once
 
+	public GameObject splatter;
     public bool playerDead = true; //start player as dead
     public bool invulnerable = false;
     public float spawnTimer;
@@ -40,7 +41,8 @@ public class Player : MonoBehaviour {
     }
 
     protected void Die() {
-        //Debug.Log("I am doing the Death loop now");
+		//Debug.Log("I am doing the Death loop now");
+		Instantiate(splatter, transform.position, Quaternion.identity);
         playerDead = true;
 		deathDoop = true;
         gameObject.transform.position = currentSpawn.transform.position;

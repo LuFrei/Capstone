@@ -5,3 +5,4 @@ using UnityEngine;
 public interface ILockable {
     bool isLocked { get; set; }
 }
+
