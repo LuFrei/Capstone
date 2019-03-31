@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour {
     public GameObject titleScreen;
     public GameObject pauseScreen;
 
-    public bool levelEnd;
-
  
     void Start () {
         //Upon start up, the game will default to the Title screen
@@ -39,14 +37,23 @@ public class GameManager : MonoBehaviour {
         //}
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            SceneManager.LoadScene("Scene00");
+            GoToLevel(0);
         }
 		if (Input.GetKeyDown(KeyCode.Alpha2)) {
-			SceneManager.LoadScene("Scene01");
+			GoToLevel(1);
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha3)) {
-			SceneManager.LoadScene("Scene02");
+			GoToLevel(2);
 		}
+	}
+
+	
+	public void GoToLevel(int level) {
+		SceneManager.LoadScene(level);
+	}
+
+	public void GoToNextLevel() {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	//void TitleLoop() {

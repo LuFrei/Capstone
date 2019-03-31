@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
 
 	public Animator anim;
 
+	public bool active;
+
 	//keeps track of all sentences of current dialogue
 	private Queue<string> sentences;
 
@@ -28,6 +30,7 @@ public class DialogueManager : MonoBehaviour
 	}
 
 	public void StartDialogue (Dialogue dialogue) {
+		active = true;
 		anim.SetBool("IsOpen", true);
 		player.inDialogue = true;
 
@@ -54,7 +57,7 @@ public class DialogueManager : MonoBehaviour
 	}
 
 	private void EndDialogue() {
-
+		active = false;
 		anim.SetBool("IsOpen", false);
 		player.inDialogue = false;
 	}

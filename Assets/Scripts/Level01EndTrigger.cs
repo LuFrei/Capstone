@@ -5,30 +5,115 @@ using UnityEngine.SceneManagement;
 
 public class Level01EndTrigger : MonoBehaviour {
 
-    bool isActive = false;
-    public GameObject gasEffect;
+	DialogueManager dm;
+	GameManager gm;
     Player player;
+
+	int step = 0;
+    bool isActive = false;
+
+	public bool initiated = false;
+
+
+	public DoorBehavior door1;
+	public DoorBehavior door2;
+	public DialogueTrigger dialogue1;
+
+	public DoorBehavior hatch;
+	public DoorBehavior acid;
+
+	public DialogueTrigger dialogue2;
+
+	public DialogueTrigger dialogue3;
+
 
 	// Use this for initialization
 	void Start () {
+		dm = GameObject.FindGameObjectWithTag("GameController").GetComponent<DialogueManager>();
+		gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (isActive) {
-            //Activate gas effects
-            gasEffect.SetActive(true);
-            //Damage player until dead
-            if (player.playerDead) {
-                SceneManager.LoadScene("Scene02");
-            }
-        }
 	}
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("Player")) {
+        if (collision.gameObject.CompareTag("Player") && !isActive) {
             isActive = true;
+			NextSequence();
         }
     }
+
+	private void Update() {
+		//going to check for next step cue in here
+		if (isActive) {
+			//look for the cue specific to each step
+			switch (step) {
+				case 0: 
+					if (!dm.active) {
+						step++;
+						NextSequence();
+					}
+					break;
+				case 1:
+					if (hatch.IsOpen) {
+						step++;
+						NextSequence();
+					}
+					break; 
+				case 2:
+					if (acid.IsOpen) {
+						step++;
+						NextSequence();
+					}
+					break;
+				case 3:
+					if (!dm.active) {
+						step++;
+						NextSequence();
+					}
+					break;
+				case 4:
+					if (player.playerDead) {
+						step++;
+						NextSequence();
+					}
+					break;
+				case 5:
+					if (!dm.active) {
+						step++;
+						NextSequence();
+					}
+					break;
+			}
+		}
+	}
+
+	void NextSequence() {
+		switch (step) {
+			case 0:	//Lock Doors and start first dailogue
+				StartCoroutine(door1.Close());
+				StartCoroutine(door2.Close());
+				dialogue1.TriggerDialogue();
+				if(!dm.active) {
+ 
+				}
+				break;
+			case 1:	//Open hatches
+				StartCoroutine(hatch.Open());
+				break;
+			case 2: //flood room with acid (not damaging acid)
+				StartCoroutine(acid.Open()); //using door behavior on it for simplicity
+				break;
+			case 3: //Second dialogue
+				dialogue2.TriggerDialogue();
+				break;
+			case 4: //make player explode
+				player.Damage(100, 0);
+				break;
+			case 5: //Final dialogue
+				dialogue3.TriggerDialogue();
+				break;
+			case 6: //Exit Level
+				gm.GoToNextLevel();
+				break;
+		}
+	}
 }

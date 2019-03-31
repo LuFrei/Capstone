@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DoorBehavior : MonoBehaviour, ILockable {
 
+	bool isOpen;
+	public bool IsOpen { get; }
+
     public bool isLocked { get; set; }
 
     public float speed;
@@ -50,6 +53,7 @@ public class DoorBehavior : MonoBehaviour, ILockable {
                 if (currentPos > maxDistance) {
                     currentPos = maxDistance;
                 }
+				isOpen = true;
                 yield return null;
             }
         }
@@ -65,6 +69,7 @@ public class DoorBehavior : MonoBehaviour, ILockable {
                 if (currentPos < 0) {
                     currentPos = 0;
                 }
+				isOpen = false;
                 yield return null;
             }
         }
