@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DoorBehavior : MonoBehaviour, ILockable {
 
-	bool isOpen;
-	public bool IsOpen { get; }
+	public bool isOpen;
 
     public bool isLocked { get; set; }
 
@@ -53,11 +52,11 @@ public class DoorBehavior : MonoBehaviour, ILockable {
                 if (currentPos > maxDistance) {
                     currentPos = maxDistance;
                 }
-				isOpen = true;
                 yield return null;
             }
         }
-    }
+		isOpen = true;
+	}
 
     //Follows same rules as Open()
     public IEnumerator Close() {
@@ -69,9 +68,9 @@ public class DoorBehavior : MonoBehaviour, ILockable {
                 if (currentPos < 0) {
                     currentPos = 0;
                 }
-				isOpen = false;
                 yield return null;
             }
         }
-    }
+		isOpen = false;
+	}
 }

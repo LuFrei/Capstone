@@ -13,9 +13,9 @@ public class PlayerController : Player {
     public bool down;
     bool fire;
     bool jump;
-    #endregion
-
-    Rigidbody2D rgb2d;
+	#endregion
+    
+	Rigidbody2D rgb2d;
 
     public GameObject bulletPoint;
     public GameObject bullet;
@@ -29,6 +29,7 @@ public class PlayerController : Player {
 	void Start () {
         rgb2d = GetComponent<Rigidbody2D>();
         groundDetector = GetComponentInChildren<RayCastDetector>();
+		gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     } 
 
     // Update is called once per frame
@@ -60,7 +61,7 @@ public class PlayerController : Player {
                 Jump();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && currentSpawn.GetComponent<Spawner>().ready == true) {
+        if (Input.GetKeyDown(KeyCode.Space) && currentSpawn.GetComponent<Spawner>().ready == true && !gameManager.levelEnding) {
             Respawn();
         }
     }

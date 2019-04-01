@@ -14,15 +14,7 @@ public class LevelManager : MonoBehaviour
 		gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-
-	void EndLevel() {
-		gm.GoToNextLevel();
+	void Endevel() {
+		gm.GoToLevel(1);
 	}
 }

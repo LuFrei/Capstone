@@ -9,10 +9,8 @@ public class Level01EndTrigger : MonoBehaviour {
 	GameManager gm;
     Player player;
 
-	int step = 0;
-    bool isActive = false;
-
-	public bool initiated = false;
+	public int step = 0;
+    public bool isActive = false;
 
 
 	public DoorBehavior door1;
@@ -37,6 +35,7 @@ public class Level01EndTrigger : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player") && !isActive) {
             isActive = true;
+			gm.levelEnding = true;
 			NextSequence();
         }
     }
@@ -53,13 +52,15 @@ public class Level01EndTrigger : MonoBehaviour {
 					}
 					break;
 				case 1:
-					if (hatch.IsOpen) {
+					Debug.Log("Checking for open hatch");
+					if (hatch.isOpen) {
+						Debug.Log("hatch detected as open");
 						step++;
 						NextSequence();
 					}
 					break; 
 				case 2:
-					if (acid.IsOpen) {
+					if (acid.isOpen) {
 						step++;
 						NextSequence();
 					}
@@ -92,9 +93,6 @@ public class Level01EndTrigger : MonoBehaviour {
 				StartCoroutine(door1.Close());
 				StartCoroutine(door2.Close());
 				dialogue1.TriggerDialogue();
-				if(!dm.active) {
- 
-				}
 				break;
 			case 1:	//Open hatches
 				StartCoroutine(hatch.Open());
@@ -112,7 +110,7 @@ public class Level01EndTrigger : MonoBehaviour {
 				dialogue3.TriggerDialogue();
 				break;
 			case 6: //Exit Level
-				gm.GoToNextLevel();
+				gm.GoToLevel(1);
 				break;
 		}
 	}

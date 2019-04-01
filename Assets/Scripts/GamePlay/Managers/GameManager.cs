@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     public GameObject titleScreen;
     public GameObject pauseScreen;
 
+	public bool levelEnding = false;
  
     void Start () {
         //Upon start up, the game will default to the Title screen
@@ -49,11 +50,8 @@ public class GameManager : MonoBehaviour {
 
 	
 	public void GoToLevel(int level) {
+		levelEnding = false;
 		SceneManager.LoadScene(level);
-	}
-
-	public void GoToNextLevel() {
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	//void TitleLoop() {

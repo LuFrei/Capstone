@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hazard : MonoBehaviour {
 
     public int damageValue;
+	public int invulnaribilityTime;
     Player player;
 
     private void Start() {
@@ -14,7 +15,7 @@ public class Hazard : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
             Debug.Log("I should be doing damage to player");
-            player.Damage(damageValue, 2);
+            player.Damage(damageValue, invulnaribilityTime);
         }
     }
 }
