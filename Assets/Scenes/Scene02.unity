@@ -734,6 +734,7 @@ GameObject:
   - component: {fileID: 544327554}
   - component: {fileID: 544327553}
   - component: {fileID: 544327556}
+  - component: {fileID: 544327557}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -821,6 +822,18 @@ MonoBehaviour:
   - {fileID: 549109466}
   - {fileID: 1200354684}
   currentPos: 0
+--- !u!114 &544327557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544327552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3080e3a5733c3db4fb8fd79592c936ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &549109466 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4454171494138612, guid: 4c50eedf18748fe408dc6d67aa262851,
@@ -2017,10 +2030,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpawn: {fileID: 0}
-  health: 3
+  health: 0
   speed: 5
   jumpHeight: 8
-  splatter: {fileID: 0}
+  splatter: {fileID: 6237716664036443270, guid: f8c282dca20c0d145bcba428cfa4db9d,
+    type: 3}
   playerDead: 0
   invulnerable: 0
   spawnTimer: 0
@@ -2973,6 +2987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageValue: 5
+  invulnaribilityTime: 0
 --- !u!1001 &1669856764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3215,7 +3230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796692444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.501, y: -3, z: 0}
+  m_LocalPosition: {x: 10.04, y: -17.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 88252196}

@@ -87,6 +87,8 @@ MonoBehaviour:
   health: 0
   speed: 5
   jumpHeight: 8
+  splatter: {fileID: 6237716664036443270, guid: f8c282dca20c0d145bcba428cfa4db9d,
+    type: 3}
   playerDead: 0
   invulnerable: 0
   spawnTimer: 0
