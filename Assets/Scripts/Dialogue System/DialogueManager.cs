@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour
 	private Queue<string> sentences;
 
     void Start()    {
+		GameManager.OnLevelChanged += FindPlayer;
 		sentences = new Queue<string>();
 		player = FindObjectOfType<PlayerController>();
     }
@@ -60,5 +61,10 @@ public class DialogueManager : MonoBehaviour
 		active = false;
 		anim.SetBool("IsOpen", false);
 		player.inDialogue = false;
+	}
+
+	void FindPlayer() {
+		Debug.Log("Finding Player DM");
+		player = FindObjectOfType<PlayerController>();
 	}
 }

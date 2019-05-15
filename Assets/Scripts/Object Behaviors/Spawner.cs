@@ -24,6 +24,7 @@ public class Spawner : MonoBehaviour {
         if (firstSpawn) {
             active = true;
             player.currentSpawn = this.gameObject;
+			player.transform.position = gameObject.transform.position; //we need this so player is in correct spawner when in new scene
         }
     }
 

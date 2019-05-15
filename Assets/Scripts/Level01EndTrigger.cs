@@ -17,7 +17,7 @@ public class Level01EndTrigger : MonoBehaviour {
 	public DoorBehavior door2;
 	public DialogueTrigger dialogue1;
 
-	public DoorBehavior hatch;
+	public TrapDoorBehavior hatch;
 	public DoorBehavior acid;
 
 	public DialogueTrigger dialogue2;
@@ -110,7 +110,7 @@ public class Level01EndTrigger : MonoBehaviour {
 				dialogue3.TriggerDialogue();
 				break;
 			case 6: //Exit Level
-				gm.GoToLevel(1);
+				gm.GoToLevel(2);
 				break;
 		}
 	}

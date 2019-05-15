@@ -7,9 +7,7 @@ public class DoorSwitch : MonoBehaviour
 	public Switch dSwitch;  //switch this class will use
 	public DoorBehavior door;
 
-	private void Start() {
-		door = gameObject.GetComponent<DoorBehavior>();
-	}
+
 
 	private void Update() {
 		//When reference switch is turned on, open door.

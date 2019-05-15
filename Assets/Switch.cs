@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Switch : MonoBehaviour
 {
+	public AudioSource auSource;
 
 	public bool ready;
 	public bool on;
@@ -31,6 +32,7 @@ public class Switch : MonoBehaviour
 	//on use, check if it's ready, if so, turn on
 	void Use() {
 		if (ready) {
+			auSource.Play();
 			on = true;
 			light.color = Color.green;
 		}

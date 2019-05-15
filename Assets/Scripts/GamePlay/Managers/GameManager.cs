@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+	public delegate void LevelChangeAction();
+	public static event LevelChangeAction OnLevelChanged;
+
     public enum GameStatus { Title, Running, Paused};
     public GameStatus currentState;
 
@@ -15,11 +18,16 @@ public class GameManager : MonoBehaviour {
     public GameObject titleScreen;
     public GameObject pauseScreen;
 
+	public bool firstLoad;
+
 	public bool levelEnding = false;
  
     void Start () {
+		OnLevelChanged += FindPlayer;
+
         //Upon start up, the game will default to the Title screen
         currentState = GameStatus.Title;
+		player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
  
@@ -38,20 +46,36 @@ public class GameManager : MonoBehaviour {
         //}
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            GoToLevel(0);
+            GoToLevel(1);
         }
 		if (Input.GetKeyDown(KeyCode.Alpha2)) {
-			GoToLevel(1);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha3)) {
 			GoToLevel(2);
 		}
+		if (Input.GetKeyDown(KeyCode.Alpha3)) {
+			GoToLevel(3);
+		}
+
+		//"Restarts" game
+		if (Input.GetKeyDown(KeyCode.R)) {
+			player.GetComponent<Rigidbody2D>().gravityScale = 3;
+			GoToLevel(1);
+		}
+
+
 	}
 
 	
 	public void GoToLevel(int level) {
 		levelEnding = false;
+		if(OnLevelChanged != null) {
+			OnLevelChanged();
+		}
 		SceneManager.LoadScene(level);
+	}
+
+	public void FindPlayer() {
+			Debug.Log("Finding Player GM");
+		player = GameObject.FindGameObjectWithTag("Player");
 	}
 
 	//void TitleLoop() {

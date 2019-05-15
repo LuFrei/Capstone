@@ -5,35 +5,45 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour {
 
     public DoorBehavior door;
+	public bool isActive;
 
     //The Open and the Close types are "One Shot": Opens/Clsoes all the way on triggerEnter
     //Open and Close are continuous: Opens when enter trigger, closes when you leave.
     public enum TriggerType { Open, Close, OpenAndClose};
     public TriggerType function;
 
-    private void OnTriggerEnter2D(Collider2D collision) {
+	//private void Start() {
+	//	if (door = null) {
+	//		door = GetComponentInChildren<DoorBehavior>();
+	//	}
+	//}
 
-        if (collision.gameObject.CompareTag("Player")) {
-            switch(function){
-                case TriggerType.Open:
-                    StartCoroutine(door.Open());
-                    break;
-                case TriggerType.Close:
-                    StartCoroutine(door.Close());
-                    break;
-                case TriggerType.OpenAndClose:
-                    Stop();
-                    StartCoroutine(door.Open());
-                    break;
-            }
-        }
+	private void OnTriggerEnter2D(Collider2D collision) {
+		if (isActive) {
+			if (collision.gameObject.CompareTag("Player")) {
+				switch (function) {
+					case TriggerType.Open:
+						StartCoroutine(door.Open());
+						break;
+					case TriggerType.Close:
+						StartCoroutine(door.Close());
+						break;
+					case TriggerType.OpenAndClose:
+						Stop();
+						StartCoroutine(door.Open());
+						break;
+				}
+			}
+		}
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("Player") && function == TriggerType.OpenAndClose) {
-            Stop();
-            StartCoroutine(door.Close());
-        }
+		if (isActive) {
+			if (collision.gameObject.CompareTag("Player") && function == TriggerType.OpenAndClose) {
+				Stop();
+				StartCoroutine(door.Close());
+			}
+		}
     }
 
     void Stop() {

@@ -9,15 +9,13 @@ public class DoorBehavior : MonoBehaviour, ILockable {
     public bool isLocked { get; set; }
 
     public float speed;
-    public float maxDistance;
-    float currentPos = 0;
-
-    public enum Direction { Horizontal, Vertical};
-    public Direction doorStyle;
+    float maxDistance = 3;
+	float lastPosition = 0;
+    Vector3 currentPos;
 
     public bool startOpen;
 
-    Vector3 openDir;
+    Vector3 openDir = Vector3.up;
 
     void Start () {
         SetUp();
@@ -25,34 +23,34 @@ public class DoorBehavior : MonoBehaviour, ILockable {
 
     //This will take inspector values and set up variables accordingly
     void SetUp() {
-        switch (doorStyle) {
-            case Direction.Horizontal:
-                openDir = Vector3.right;
-                break;
-            case Direction.Vertical:
-                openDir = Vector3.up;
-                break;
-        }
-
         if (startOpen) {
             StartCoroutine(Open());
         }
     }
 
+	void UpdateCurrentPos() {
+		currentPos = transform.localPosition;
+	}
+
     public IEnumerator Open() {
         //If door meets open conditions, open
         //else, exit without doing anything
-        if (!isLocked && currentPos < maxDistance) {
+        if (!isLocked && currentPos.y < maxDistance) {
             //While door is not fully open, keep opening
-            while (currentPos < maxDistance) {
+            while (currentPos.y < maxDistance) {
                 //Debug.Log("I'm opening!");
                 transform.Translate(openDir * speed * Time.deltaTime);
-                currentPos += (speed * Time.deltaTime);
+				UpdateCurrentPos();
                 //Check if door didn't exceed maximum open position
-                if (currentPos > maxDistance) {
-                    currentPos = maxDistance;
+                if (currentPos.y > maxDistance) {
+                    currentPos.y = maxDistance;
                 }
                 yield return null;
+
+				if(currentPos.x > 10 || currentPos.y > 10 || currentPos.z > 10) {
+					Debug.Log("We had to eject from loop");
+					Debug.Log("x: " + currentPos.x + ", y: " + currentPos.y + ", z: " + currentPos.z);
+				}
             }
         }
 		isOpen = true;
@@ -60,13 +58,13 @@ public class DoorBehavior : MonoBehaviour, ILockable {
 
     //Follows same rules as Open()
     public IEnumerator Close() {
-        if (!isLocked && currentPos > 0) {
-            while(currentPos > 0){
+        if (!isLocked && currentPos.y > 0) {
+            while(currentPos.y > 0){
                 //Debug.Log("I'm closing!");
                 transform.Translate(openDir * -speed * Time.deltaTime);
-                currentPos -= (speed * Time.deltaTime);
-                if (currentPos < 0) {
-                    currentPos = 0;
+				UpdateCurrentPos();
+                if (currentPos.y < 0) {
+                    currentPos.y = 0;
                 }
                 yield return null;
             }
