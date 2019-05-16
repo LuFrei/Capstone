@@ -6,7 +6,7 @@ public class Move : MonoBehaviour {
 
     //This script moves objects using this script
     //at a certain direction at a certain speed
-    //in definitelly
+    //indefinitelly
 
 
     public enum Direction { Up, Down, Left, Right};

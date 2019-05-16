@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Level01EndTrigger : MonoBehaviour {
 
+	//Would be nice to condence this down to a reusable script
+	//To be looked at later
+
 	DialogueManager dm;
 	GameManager gm;
     Player player;

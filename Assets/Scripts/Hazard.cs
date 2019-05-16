@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Hazard : MonoBehaviour {
 
+	//GameObjects with this property deal damage to the player
+
     public int damageValue;
 	public int invulnaribilityTime;
     Player player;
