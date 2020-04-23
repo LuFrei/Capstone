@@ -15,8 +15,8 @@ public class SpawnManager : MonoBehaviour
 
 	private void Awake() { 
 		// On awake, Make a list of all spawn point in scene
-		GameObject[] spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
-		foreach(GameObject spawn in spawnObjects) {
+		GameObject[] spawners = GameObject.FindGameObjectsWithTag("Respawn");
+		foreach(GameObject spawn in spawners) {
 			SpawnList.Add(spawn.GetComponent<Spawner>());
 		}
 
